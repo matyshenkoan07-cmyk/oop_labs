@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Lab2
@@ -11,7 +11,12 @@ namespace Lab2
         {
             InitializeComponent();
         }
-
+        
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        
         private void Point_Click(object sender, RoutedEventArgs e)
         {
             shapeEditor.CurrentShapeType = "Point";
@@ -24,16 +29,24 @@ namespace Lab2
             Title = "Лабораторна робота №2 - Режим: Лінія";
         }
 
+        private void Ellipse_Click(object sender, RoutedEventArgs e)
+        {
+            shapeEditor.CurrentShapeType = "Ellipse";
+            Title = "Лабораторна робота №2 - Режим: Еліпс";
+        }
+        
         private void Rectangle_Click(object sender, RoutedEventArgs e)
         {
             shapeEditor.CurrentShapeType = "Rect";
             Title = "Лабораторна робота №2 - Режим: Прямокутник";
         }
-
-        private void Ellipse_Click(object sender, RoutedEventArgs e)
+        
+        private void About_Click(object sender, RoutedEventArgs e)
         {
-            shapeEditor.CurrentShapeType = "Ellipse";
-            Title = "Лабораторна робота №2 - Режим: Еліпс";
+            MessageBox.Show("Лабораторна робота №2\nВиконала: Матюшенко Анастасія\nВаріант 11", 
+                "Довідка", 
+                MessageBoxButton.OK, 
+                MessageBoxImage.Information);
         }
 
         private void drawingCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
