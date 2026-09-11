@@ -1,4 +1,4 @@
-﻿<Window x:Class="Lab2.MainWindow"
+<Window x:Class="Lab2.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,14 +9,18 @@
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top">
-                <MenuItem Header="Файл"/>
+                <MenuItem Header="Файл">
+                    <MenuItem Header="Вихід" Click="Exit_Click"/>
+                </MenuItem>
                 <MenuItem Header="Об’єкти">
                     <MenuItem Header="Крапка" Click="Point_Click"/>
                     <MenuItem Header="Лінія" Click="Line_Click"/>
-                    <MenuItem Header="Прямокутник" Click="Rectangle_Click"/>
                     <MenuItem Header="Еліпс" Click="Ellipse_Click"/>
+                    <MenuItem Header="Прямокутник" Click="Rectangle_Click"/>
                 </MenuItem>
-                <MenuItem Header="Довідка"/>
+                <MenuItem Header="Довідка">
+                    <MenuItem Header="Про програму" Click="About_Click"/>
+                </MenuItem>
             </Menu>
             
             <Canvas x:Name="drawingCanvas" Background="White"
