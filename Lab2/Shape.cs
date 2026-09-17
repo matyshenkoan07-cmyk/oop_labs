@@ -1,3 +1,4 @@
+using System;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Windows.Controls;
@@ -17,6 +18,8 @@ namespace Lab2
         }
 
         public abstract void Draw(Canvas canvas);
+        
+        public abstract void Update(System.Windows.UIElement element);
     }
 
     public class PointShape : Shape
@@ -35,6 +38,10 @@ namespace Lab2
             
             canvas.Children.Add(ellipse);
         }
+
+        public override void Update(System.Windows.UIElement element)
+        {
+        }
     }
 
     public class LineShape : Shape
@@ -51,6 +58,15 @@ namespace Lab2
                 StrokeThickness = 2
             };
             canvas.Children.Add(line);
+        }
+            
+        public override void Update(System.Windows.UIElement element)
+        {
+            if (element is Line line)
+            {
+                line.X2 = x2; 
+                line.Y2 = y2;
+            }
         }
     }
     
@@ -71,6 +87,17 @@ namespace Lab2
             Canvas.SetTop(ellipse, Math.Min(y1, y2));
             
             canvas.Children.Add(ellipse);
+        }
+
+        public override void Update(System.Windows.UIElement element)
+        {
+            if (element is Ellipse ellipse)
+            {
+                ellipse.Width = Math.Abs(x2 - x1);
+                ellipse.Height = Math.Abs(y2 - y1);
+                Canvas.SetLeft(ellipse, Math.Min(x1, x2));
+                Canvas.SetTop(ellipse, Math.Min(y1, y2));
+            }
         }
     }
     
@@ -94,6 +121,17 @@ namespace Lab2
             Canvas.SetTop(rect, y1 - Math.Abs(y2 - y1));
             
             canvas.Children.Add(rect);
+        }
+
+        public override void Update(System.Windows.UIElement element)
+        {
+            if (element is Rectangle rect)
+            {
+                rect.Width = Math.Abs(x2 - x1) * 2;
+                rect.Height = Math.Abs(y2 - y1) * 2;
+                Canvas.SetLeft(rect, x1 - Math.Abs(x2 - x1));
+                Canvas.SetTop(rect, y1 - Math.Abs(y2 - y1));
+            }
         }
     }
 }
