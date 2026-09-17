@@ -17,6 +17,9 @@ namespace Lab2
         protected double x1, y1, x2, y2;
         protected bool isDrawing = false;
         private System.Windows.UIElement previewElement;
+       
+        private Shape tempShape; 
+        
         public string CurrentShapeType { get; set; } = "Line";
 
         public override void OnMouseDown(Canvas canvas, MouseButtonEventArgs e)
@@ -27,23 +30,8 @@ namespace Lab2
             x2 = x1;
             y2 = y1;
             isDrawing = true;
-        }
 
-        public override void OnMouseMove(Canvas canvas, MouseEventArgs e)
-        {
-            if (!isDrawing) return;
-            
-            var pos = e.GetPosition(canvas);
-            x2 = pos.X;
-            y2 = pos.Y;
-
-            if (previewElement != null)
-            {
-                canvas.Children.Remove(previewElement);
-                previewElement = null;
-            }
-            
-            Shape tempShape = CurrentShapeType switch
+            tempShape = CurrentShapeType switch
             {
                 "Point" => new PointShape(),
                 "Line" => new LineShape(),
@@ -55,7 +43,6 @@ namespace Lab2
             tempShape.Set(x1, y1, x2, y2);
             
             previewElement = CreateWpfElement(tempShape);
-            
              
             if (previewElement is System.Windows.Shapes.Shape wpfShape)
             {
@@ -66,6 +53,18 @@ namespace Lab2
             {
                 canvas.Children.Add(previewElement);
             }
+        }
+
+        public override void OnMouseMove(Canvas canvas, MouseEventArgs e)
+        {
+            if (!isDrawing || previewElement == null || tempShape == null) return;
+            
+            var pos = e.GetPosition(canvas);
+            x2 = pos.X;
+            y2 = pos.Y;
+
+            tempShape.Set(x1, y1, x2, y2);
+            tempShape.Update(previewElement);
         }
 
         public override void OnMouseUp(Canvas canvas, MouseButtonEventArgs e)
@@ -83,24 +82,16 @@ namespace Lab2
                 previewElement = null;
             }
 
-            Shape shape = CurrentShapeType switch
-            {
-                "Point" => new PointShape(),
-                "Line" => new LineShape(),
-                "Rect" => new RectShape(),
-                "Ellipse" => new EllipseShape(),
-                _ => new LineShape()
-            };
-
-            shape.Set(x1, y1, x2, y2);
-            shape.Draw(canvas);
+            tempShape.Set(x1, y1, x2, y2);
+            tempShape.Draw(canvas);
             
-            //збереження фігуру в статичний масив за варіантом
             if (shapeCount < 111)
             {
-                pcshape[shapeCount] = shape;
+                pcshape[shapeCount] = tempShape;
                 shapeCount++;
             }
+         
+            tempShape = null; 
         }
 
         private System.Windows.UIElement CreateWpfElement(Shape shape)
