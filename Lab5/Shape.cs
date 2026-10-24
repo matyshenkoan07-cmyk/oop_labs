@@ -72,7 +72,16 @@ namespace Lab5
         
         public virtual string ToCsv()
         {
-            return $"{Name};{X1.ToString(CultureInfo.InvariantCulture)};{Y1.ToString(CultureInfo.InvariantCulture)};{X2.ToString(CultureInfo.InvariantCulture)};{Y2.ToString(CultureInfo.InvariantCulture)}";
+            var fields = new string[]
+            {
+                Name,
+                X1.ToString(CultureInfo.InvariantCulture),
+                Y1.ToString(CultureInfo.InvariantCulture),
+                X2.ToString(CultureInfo.InvariantCulture),
+                Y2.ToString(CultureInfo.InvariantCulture)
+            };
+
+            return string.Join(";", fields);
         }
     }
 
