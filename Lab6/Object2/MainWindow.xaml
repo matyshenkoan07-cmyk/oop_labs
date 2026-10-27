@@ -1,0 +1,20 @@
+﻿<Window x:Class="Object2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Object2 - Генератор даних" Height="350" Width="450" WindowStartupLocation="Manual">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Text="Згенерований вектор чисел (double):" FontWeight="Bold" Margin="0,0,0,10"/>
+        
+        <DataGrid x:Name="dataGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Індекс (x)" Binding="{Binding Index}" Width="100"/>
+                <DataGridTextColumn Header="Значення (y)" Binding="{Binding Value, StringFormat={}{0:F4}}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

@@ -1,0 +1,8 @@
+﻿<Window x:Class="Object3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Object3 - Графік y = f(x)" Height="350" Width="450" WindowStartupLocation="Manual">
+    <Grid Margin="10">
+        <Canvas x:Name="plotCanvas" Background="White" SizeChanged="PlotCanvas_SizeChanged"/>
+    </Grid>
+</Window>
